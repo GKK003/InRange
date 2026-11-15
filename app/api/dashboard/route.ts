@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { authorizeAppRequest, isAuthError } from '@/lib/api-auth';
 import { adminDb } from '@/lib/supabase';
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   const auth = await authorizeAppRequest(req);
