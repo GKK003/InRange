@@ -1,5 +1,12 @@
 create extension if not exists pgcrypto;
-create type log_type as enum ('meal','activity','stress','note');
+do $$ begin
+ create type log_type as enum ('meal','activity','stress','note');
+exception when duplicate_object then null;
+end $$;
+alter type log_type add value if not exists 'meal';
+alter type log_type add value if not exists 'activity';
+alter type log_type add value if not exists 'stress';
+alter type log_type add value if not exists 'note';
 create table if not exists glucose_readings (
  id uuid primary key default gen_random_uuid(), value_mgdl int not null, value_mmol numeric(4,1),
  trend text, recorded_at timestamptz not null unique
