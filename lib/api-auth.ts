@@ -20,6 +20,6 @@ export async function authorizeAppRequest(req: NextRequest) {
   return { demo: false as const, user: data.user };
 }
 
-export function isAuthError(result: Awaited<ReturnType<typeof authorizeAppRequest>>): result is NextResponse {
+export function isAuthError(result: Awaited<ReturnType<typeof authorizeAppRequest>>): result is NextResponse<{ error: string }> {
   return result instanceof NextResponse;
 }
