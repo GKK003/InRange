@@ -30,4 +30,4 @@ To keep collecting while the app is closed, create a cron-job.org job for your d
 
 ## Privacy and safety
 
-This starter has no account sign-in or per-user row-level security. Before storing real health data in a public deployment, add authentication, owner-scoped RLS policies, and access controls to all tables. The check-in endpoint stores an alert but does not send email/webhooks. Glucose and carb information are informational only; no insulin dose calculator is included.
+The deployed app uses Supabase email/password sign-in when its Supabase variables are configured. Create the owner account in Supabase Dashboard → Authentication → Users, then set `APP_OWNER_EMAIL` to that exact email in Vercel. There is no public sign-up form. Server routes verify the access token and allow only the configured owner email; the migration enables RLS and removes direct anon/authenticated table access. Keep the Supabase secret key server-only. The check-in endpoint stores an alert but does not send email/webhooks. Glucose and carb information are informational only; no insulin dose calculator is included.

@@ -22,3 +22,12 @@ create table if not exists quick_alerts (
  id uuid primary key default gen_random_uuid(), status_type text not null check(status_type in ('low_help','high_space','burnt_out','all_good')),
  message text, created_at timestamptz not null default now()
 );
+
+-- The app accesses these tables only from owner-checked server routes.
+alter table glucose_readings enable row level security;
+alter table daily_logs enable row level security;
+alter table saved_meals enable row level security;
+alter table supplies_and_sensor enable row level security;
+alter table quick_alerts enable row level security;
+revoke all on glucose_readings, daily_logs, saved_meals, supplies_and_sensor, quick_alerts from anon, authenticated;
+grant all on glucose_readings, daily_logs, saved_meals, supplies_and_sensor, quick_alerts to service_role;
